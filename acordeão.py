@@ -30,3 +30,9 @@ i=0
 while i<len(cria_baralho()):
     print(f'{i+1}. {cria_baralho()[i]}')
     i+=1
+
+def extrai_naipe(carta):
+    if len(carta)==2:
+        return carta[1]
+    elif len(carta)==3:
+        return carta[2]
