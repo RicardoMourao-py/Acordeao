@@ -36,3 +36,9 @@ def extrai_naipe(carta):
         return carta[1]
     elif len(carta)==3:
         return carta[2]
+
+def extrai_valor(carta):
+    if len(carta)==2:
+        return carta[0]
+    elif len(carta)==3:
+        return carta[0] + carta[1]
