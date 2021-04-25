@@ -30,7 +30,7 @@ i=0
 while i<len(cria_baralho()):
     print(f'{i+1}. {cria_baralho()[i]}')
     i+=1
-# extraindo o naipe da carta
+#extraindo o naipe da carta
 def extrai_naipe(carta):
     if len(carta)==2:
         return carta[1]
@@ -64,3 +64,13 @@ def lista_movimentos_possiveis(lista,posicao):
         return [3]
     else: 
         return []
+# criando a função de empilhar as cartas 
+def empilha(lista,origem,destino):
+    if lista_movimentos_possiveis(lista, origem)==[1,3] or lista_movimentos_possiveis(lista, origem)==[1] or lista_movimentos_possiveis(lista, origem)==[3]:
+        lista[destino]=lista[origem]
+        del lista[origem]
+        return lista
+    else:
+        return lista
+
+print(empilha(['A♦', '10♥', 'Q♣', 'K♠', '10♣', '4♠'], 4, 1))
