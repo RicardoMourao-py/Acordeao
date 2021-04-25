@@ -30,15 +30,37 @@ i=0
 while i<len(cria_baralho()):
     print(f'{i+1}. {cria_baralho()[i]}')
     i+=1
-
+# extraindo o naipe da carta
 def extrai_naipe(carta):
     if len(carta)==2:
         return carta[1]
     elif len(carta)==3:
         return carta[2]
-
+# extraindo o valor da carta 
 def extrai_valor(carta):
     if len(carta)==2:
         return carta[0]
     elif len(carta)==3:
         return carta[0] + carta[1]
+# definindo uma função para a movimentação das cartas 
+def lista_movimentos_possiveis(lista,posicao):
+    if posicao==0:
+        return []
+    elif posicao==1:
+        if extrai_valor(lista[posicao])==extrai_valor(lista[posicao-1]) or extrai_naipe(lista[posicao])==extrai_naipe(lista[posicao-1]):
+            return [1]
+        else:
+            return []
+    elif posicao==2:
+        if extrai_valor(lista[posicao])==extrai_valor(lista[posicao-1]) or extrai_naipe(lista[posicao])==extrai_naipe(lista[posicao-1]):
+            return [1]
+        else:
+            return []
+    elif (extrai_valor(lista[posicao]) == extrai_valor(lista[posicao-3]) or extrai_naipe(lista[posicao]) == extrai_naipe(lista[posicao-3])) and (extrai_valor(lista[posicao]) == extrai_valor(lista[posicao-1]) or extrai_naipe(lista[posicao]) == extrai_naipe(lista[posicao-1])):
+        return [1,3]
+    elif extrai_valor(lista[posicao]) == extrai_valor(lista[posicao-1]) or extrai_naipe(lista[posicao]) == extrai_naipe(lista[posicao-1]):
+        return [1]
+    elif extrai_valor(lista[posicao]) == extrai_valor(lista[posicao-3]) or extrai_naipe(lista[posicao]) == extrai_naipe(lista[posicao-3]):
+        return [3]
+    else: 
+        return []
