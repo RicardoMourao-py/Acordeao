@@ -1,6 +1,6 @@
 # Começando o exercício progama
 print('Design de Software')
-print('Ricardo Mourão Rodrigues Filhos')
+print('Ricardo Mourão Rodrigues Filho')
 
 # Explicação do Acordeão
 print('Paciência Acordeão')
@@ -26,53 +26,82 @@ def cria_baralho():
     lista_cartas = lista_espadas + lista_copas + lista_ouros + lista_paus
     lista_cartas_embaralhadas = random.sample(lista_cartas, 52)
     return lista_cartas_embaralhadas
+baralho=cria_baralho()
 i=0
-while i<len(cria_baralho()):
-    print(f'{i+1}. {cria_baralho()[i]}')
+while i<len(baralho):
+    print(f'{i+1}. {baralho[i]}')
     i+=1
+posicao = int(input('Escolha uma carta de 1 a 52: '))
+carta = baralho[posicao-1]
+print(carta)
 #extraindo o naipe da carta
 def extrai_naipe(carta):
     if len(carta)==2:
         return carta[1]
     elif len(carta)==3:
         return carta[2]
+#print(extrai_naipe(carta))
 # extraindo o valor da carta 
 def extrai_valor(carta):
     if len(carta)==2:
         return carta[0]
     elif len(carta)==3:
         return carta[0] + carta[1]
+#print(extrai_valor(carta))
 # definindo uma função para a movimentação das cartas 
-def lista_movimentos_possiveis(lista,posicao):
+posicao = posicao-1
+def lista_movimentos_possiveis(baralho,posicao):
     if posicao==0:
         return []
     elif posicao==1:
-        if extrai_valor(lista[posicao])==extrai_valor(lista[posicao-1]) or extrai_naipe(lista[posicao])==extrai_naipe(lista[posicao-1]):
+        if extrai_valor(baralho[posicao])==extrai_valor(baralho[posicao-1]) or extrai_naipe(baralho[posicao])==extrai_naipe(baralho[posicao-1]):
             return [1]
         else:
             return []
     elif posicao==2:
-        if extrai_valor(lista[posicao])==extrai_valor(lista[posicao-1]) or extrai_naipe(lista[posicao])==extrai_naipe(lista[posicao-1]):
+        if extrai_valor(baralho[posicao])==extrai_valor(baralho[posicao-1]) or extrai_naipe(baralho[posicao])==extrai_naipe(baralho[posicao-1]):
             return [1]
         else:
             return []
-    elif (extrai_valor(lista[posicao]) == extrai_valor(lista[posicao-3]) or extrai_naipe(lista[posicao]) == extrai_naipe(lista[posicao-3])) and (extrai_valor(lista[posicao]) == extrai_valor(lista[posicao-1]) or extrai_naipe(lista[posicao]) == extrai_naipe(lista[posicao-1])):
+    elif (extrai_valor(baralho[posicao]) == extrai_valor(baralho[posicao-3]) or extrai_naipe(baralho[posicao]) == extrai_naipe(baralho[posicao-3])) and (extrai_valor(baralho[posicao]) == extrai_valor(baralho[posicao-1]) or extrai_naipe(baralho[posicao]) == extrai_naipe(baralho[posicao-1])):
         return [1,3]
-    elif extrai_valor(lista[posicao]) == extrai_valor(lista[posicao-1]) or extrai_naipe(lista[posicao]) == extrai_naipe(lista[posicao-1]):
+    elif extrai_valor(baralho[posicao]) == extrai_valor(baralho[posicao-1]) or extrai_naipe(baralho[posicao]) == extrai_naipe(baralho[posicao-1]):
         return [1]
-    elif extrai_valor(lista[posicao]) == extrai_valor(lista[posicao-3]) or extrai_naipe(lista[posicao]) == extrai_naipe(lista[posicao-3]):
+    elif extrai_valor(baralho[posicao]) == extrai_valor(baralho[posicao-3]) or extrai_naipe(baralho[posicao]) == extrai_naipe(baralho[posicao-3]):
         return [3]
     else: 
         return []
-
+movimetacoes_possiveis = lista_movimentos_possiveis(baralho, posicao)
+if movimetacoes_possiveis == [1,3]:
+    print(f'Movimentos possíveis: {posicao+1-3} ou {posicao+1-1}')
+    uma_delas = int(input('A que posição deseja destinar a carta: '))
+    destino = uma_delas
+    print(destino)
+elif movimetacoes_possiveis== [1]:
+    #destino=baralho[posicao-1]
+    destino=posicao
+    print(destino)
+elif movimetacoes_possiveis== [3]:
+    #destino=baralho[posicao-3]
+    destino=posicao-3
+    print(destino)
+elif movimetacoes_possiveis== []:
+    destino=[]
+    print('Não há movimentos possíveis')
+#print(lista_movimentos_possiveis(baralho, posicao))
 # criando a função de empilhar as cartas 
-def empilha(lista,origem,destino):
-    if lista_movimentos_possiveis(lista, origem)==[1,3] or lista_movimentos_possiveis(lista, origem)==[1] or lista_movimentos_possiveis(lista, origem)==[3]:
-        lista[destino]=lista[origem]
-        del lista[origem]
-        return lista
+def empilha(baralho,posicao,destino):
+    if lista_movimentos_possiveis(baralho, posicao)==[1,3] or lista_movimentos_possiveis(baralho, posicao)==[1] or lista_movimentos_possiveis(baralho, posicao)==[3]:
+        baralho[destino-1]=baralho[posicao]
+        del baralho[posicao]
+        return baralho
     else:
-        return lista
+        return destino
+baralho = empilha(baralho, posicao, destino)
+i=0
+while i<len(baralho):
+    print(f'{i+1}. {baralho[i]}')
+    i+=1
 # definindo uma função que verifica se há movimentos
 def possui_movimentos_possiveis(lista):
     lista_verifica=[]
@@ -87,4 +116,6 @@ def possui_movimentos_possiveis(lista):
         return True
     else:
         return False
+
+
 
