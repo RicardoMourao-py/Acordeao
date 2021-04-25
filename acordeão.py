@@ -73,7 +73,7 @@ def empilha(lista,origem,destino):
         return lista
     else:
         return lista
-
+# definindo uma função que verifica se há movimentos
 def possui_movimentos_possiveis(lista):
     lista_verifica=[]
     i=0
@@ -88,4 +88,3 @@ def possui_movimentos_possiveis(lista):
     else:
         return False
 
-print(possui_movimentos_possiveis(['A♦', '10♥', 'Q♣', '4♠']))
