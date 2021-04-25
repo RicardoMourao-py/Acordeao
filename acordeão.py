@@ -64,6 +64,7 @@ def lista_movimentos_possiveis(lista,posicao):
         return [3]
     else: 
         return []
+
 # criando a função de empilhar as cartas 
 def empilha(lista,origem,destino):
     if lista_movimentos_possiveis(lista, origem)==[1,3] or lista_movimentos_possiveis(lista, origem)==[1] or lista_movimentos_possiveis(lista, origem)==[3]:
@@ -73,4 +74,18 @@ def empilha(lista,origem,destino):
     else:
         return lista
 
-print(empilha(['A♦', '10♥', 'Q♣', 'K♠', '10♣', '4♠'], 4, 1))
+def possui_movimentos_possiveis(lista):
+    lista_verifica=[]
+    i=0
+    while i<len(lista):
+        if lista_movimentos_possiveis(lista, i)==[1,3] or lista_movimentos_possiveis(lista, i)==[1] or lista_movimentos_possiveis(lista, i)==[3]:
+            lista_verifica.append(i)
+            i+=1
+        else:
+            i+=1
+    if len(lista_verifica)!=0:
+        return True
+    else:
+        return False
+
+print(possui_movimentos_possiveis(['A♦', '10♥', 'Q♣', '4♠']))
