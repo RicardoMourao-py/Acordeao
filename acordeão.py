@@ -14,7 +14,6 @@ print('1. As duas cartas possuem o mesmo valor ou ')
 print('2. As duas cartas possuem o mesmo naipe. \n')
 print('Desde que alguma das condições acima seja satisfeita, qualquer carta pode ser movimentada. \n')
 input('Aperte [Enter] para iniciar o jogo... \n')
-print('O estado atual do baralho é: ')
 
 import random
 # gerando uma função para criar o baralho:
@@ -82,35 +81,40 @@ def possui_movimentos_possiveis(lista):
         return True
     else:
         return False
-baralho=cria_baralho()
+baralho=['A♠','2♠','3♦']
 while True:
+    print('O estado atual do baralho é: ')
     i=0
     while i<len(baralho):
         print(f'{i+1}. {baralho[i]}')
         i+=1
     posicao = int(input(f'Escolha uma carta de 1 a {i}: '))
     carta = baralho[posicao-1]
-    print(carta)
+    print(f'A carta escolhida foi: {carta}')
     #print(extrai_naipe(carta))
     #print(extrai_valor(carta))
     posicao = posicao-1
     movimetacoes_possiveis = lista_movimentos_possiveis(baralho, posicao)
     if movimetacoes_possiveis == [1,3]:
-        print(f'Movimentos possíveis: {posicao+1-3} ou {posicao+1-1}')
+        print(f'Os destinos possíveis para a carta escolhida é {posicao+1-3} ou {posicao+1-1}, que possui as cartas {baralho[posicao-3]} e {baralho[posicao-1]}, respectivamente.')
         uma_delas = int(input('A que posição deseja destinar a carta: '))
         destino = uma_delas
-        print(destino)
+        print(f'O destino da sua carta será para a posição: {destino}')
+        input('clique [enter] para confirmar')
     elif movimetacoes_possiveis== [1]:
         #destino=baralho[posicao-1]
         destino=posicao
-        print(destino)
+        print(f'O destino possível da sua carta será para a posição {destino}, que possui a carta {baralho[posicao-1]}')
+        input('clique [enter] para confirmar')
     elif movimetacoes_possiveis== [3]:
         #destino=baralho[posicao-3]
         destino=posicao-2
-        print(destino)
+        print(f'O destino possível da sua carta será para a posição {destino}, que possui a carta {baralho[posicao-3]}')
+        input('clique [enter] para confirmar')
     elif movimetacoes_possiveis== []:
         destino=[]
-        print('Não há movimentos possíveis')
+        print('Não há movimentos possíveis escolha outra posição')
+        input('clique [enter] para confirmar')
     #print(lista_movimentos_possiveis(baralho, posicao))
     baralho = empilha(baralho, posicao, destino)
     print('====================================================')
@@ -120,7 +124,15 @@ while True:
     #     i+=1
     verificando_novo_baralho=possui_movimentos_possiveis(baralho)
     if verificando_novo_baralho==False:
-        print(baralho)
+        print('O estado final do baralho é:' )
+        i=0
+        while i<len(baralho):
+            print(f'{i+1}. {baralho[i]}')
+            i+=1
+        if len(baralho)==1:
+            print('Parabéns você ganhou, conseguiu empilhar todas as cartas !!!!')
+        else:
+            print('Sem movimentações possíveis, não foi dessa vez, tente Novamente!' )
         break
     
 
