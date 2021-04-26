@@ -97,7 +97,7 @@ while True:
             del baralho[posicao]
             return baralho
         else:
-            return destino
+            return baralho
     baralho = empilha(baralho, posicao, destino)
     print('====================================================')
     i=0
