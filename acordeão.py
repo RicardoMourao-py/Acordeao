@@ -18,6 +18,13 @@ input('Aperte [Enter] para iniciar o jogo... \n')
 import random
 # gerando uma função para criar o baralho:
 def cria_baralho():
+    RED   = "\033[1;31m"  
+    BLUE  = "\033[1;34m"
+    CYAN  = "\033[1;36m"
+    GREEN = "\033[0;32m"
+    RESET = "\033[0;0m"
+    BOLD    = "\033[;1m"
+    REVERSE = "\033[;7m"
     lista_espadas=['A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'] # Espadas
     lista_copas=['A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥']   # Copa
     lista_ouros=['A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦']   # Ouros
@@ -81,7 +88,7 @@ def possui_movimentos_possiveis(lista):
         return True
     else:
         return False
-baralho=['A♠','2♠','3♦']
+baralho=cria_baralho()
 while True:
     print('O estado atual do baralho é: ')
     i=0
