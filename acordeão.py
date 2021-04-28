@@ -57,8 +57,12 @@ def carta_colorida(carta, numero):
     lista_naipe=['♣','♦','♥','♠']
     if extrai_naipe(carta)==lista_naipe[0]:
         print(f'{numero}. {RED+carta+ENDC}')
-    else:
+    elif extrai_naipe(carta)==lista_naipe[1]:
         print(f'{numero}. {BLUE+carta+ENDC}')
+    elif extrai_naipe(carta)==lista_naipe[2]:
+        print(f'{numero}. {GREEN+carta+ENDC}')
+    elif extrai_naipe(carta)==lista_naipe[3]:
+        print(f'{numero}. {CYAN+carta+ENDC}')
 # definindo uma função para a movimentação das cartas 
 def lista_movimentos_possiveis(baralho,posicao):
     if posicao==0:
