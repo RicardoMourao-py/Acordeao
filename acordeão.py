@@ -17,6 +17,7 @@ input('Aperte [Enter] para iniciar o jogo... \n')
 
 import random
 # gerando uma função para criar o baralho:
+
 def cria_baralho():
     RED   = "\033[1;31m"  
     BLUE  = "\033[1;34m"
@@ -44,6 +45,20 @@ def extrai_valor(carta):
         return carta[0]
     elif len(carta)==3:
         return carta[0] + carta[1]
+def carta_colorida(carta, numero):
+    RED   = "\033[1;31m"  
+    BLUE  = "\033[1;34m"
+    CYAN  = "\033[1;36m"
+    GREEN = "\033[0;32m"
+    RESET = "\033[0;0m"
+    BOLD    = "\033[;1m"
+    REVERSE = "\033[;7m"
+    ENDC = '\033[0m'
+    lista_naipe=['♣','♦','♥','♠']
+    if extrai_naipe(carta)==lista_naipe[0]:
+        print(f'{numero}. {RED+carta+ENDC}')
+    else:
+        print(f'{numero}. {BLUE+carta+ENDC}')
 # definindo uma função para a movimentação das cartas 
 def lista_movimentos_possiveis(baralho,posicao):
     if posicao==0:
@@ -93,7 +108,7 @@ while True:
     print('O estado atual do baralho é: ')
     i=0
     while i<len(baralho):
-        print(f'{i+1}. {baralho[i]}')
+        carta_colorida(baralho[i], i+1)
         i+=1
     posicao = int(input(f'Escolha uma carta de 1 a {i}: '))
     carta = baralho[posicao-1]
