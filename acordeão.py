@@ -45,24 +45,31 @@ def extrai_valor(carta):
         return carta[0]
     elif len(carta)==3:
         return carta[0] + carta[1]
-def carta_colorida(carta, numero):
+def carta_colorida(carta):
     RED   = "\033[1;31m"  
     BLUE  = "\033[1;34m"
     CYAN  = "\033[1;36m"
     GREEN = "\033[0;32m"
+    YELLOW= "\033[0;33m"
     RESET = "\033[0;0m"
     BOLD    = "\033[;1m"
     REVERSE = "\033[;7m"
     ENDC = '\033[0m'
     lista_naipe=['♣','♦','♥','♠']
     if extrai_naipe(carta)==lista_naipe[0]:
-        print(f'{numero}. {RED+carta+ENDC}')
+        carta=f'{RED+carta+ENDC}'
     elif extrai_naipe(carta)==lista_naipe[1]:
-        print(f'{numero}. {BLUE+carta+ENDC}')
+        carta=f'{BLUE+carta+ENDC}'
     elif extrai_naipe(carta)==lista_naipe[2]:
-        print(f'{numero}. {GREEN+carta+ENDC}')
+        carta=f'{GREEN+carta+ENDC}'
     elif extrai_naipe(carta)==lista_naipe[3]:
-        print(f'{numero}. {CYAN+carta+ENDC}')
+        carta=f'{CYAN+carta+ENDC}'
+    return carta
+def posicoes_amarelas(posicao):
+    UYellow="\033[4;33m"
+    ENDC = '\033[0m'
+    posicao=f'{UYellow+posicao+ENDC}'
+    return posicao
 # definindo uma função para a movimentação das cartas 
 def lista_movimentos_possiveis(baralho,posicao):
     if posicao==0:
@@ -107,35 +114,41 @@ def possui_movimentos_possiveis(lista):
         return True
     else:
         return False
-baralho=cria_baralho()
+baralho=  cria_baralho()
 while True:
     print('O estado atual do baralho é: ')
     i=0
     while i<len(baralho):
-        carta_colorida(baralho[i], i+1)
+        print(f'{i+1}. {carta_colorida(baralho[i])}')
         i+=1
     posicao = int(input(f'Escolha uma carta de 1 a {i}: '))
+    while posicao<1 or posicao>i:
+        posicao = int(input(f'Escolha uma carta de 1 a {i}: '))
     carta = baralho[posicao-1]
-    print(f'A carta escolhida foi: {carta}')
+    print(f'A carta escolhida foi: {carta_colorida(carta)}')
     #print(extrai_naipe(carta))
     #print(extrai_valor(carta))
     posicao = posicao-1
     movimetacoes_possiveis = lista_movimentos_possiveis(baralho, posicao)
     if movimetacoes_possiveis == [1,3]:
-        print(f'Os destinos possíveis para a carta escolhida é {posicao+1-3} ou {posicao+1-1}, que possui as cartas {baralho[posicao-3]} e {baralho[posicao-1]}, respectivamente.')
+        print(f'Os destinos possíveis para a carta escolhida é {posicoes_amarelas(str(posicao+1-3))} ou {posicoes_amarelas(str(posicao+1-1))}, que possui as cartas {carta_colorida(baralho[posicao-3])} e {carta_colorida(baralho[posicao-1])}, respectivamente.')
         uma_delas = int(input('A que posição deseja destinar a carta: '))
+        while (uma_delas!=posicao-2) and (uma_delas!=posicao):
+            uma_delas = int(input('A que posição deseja destinar a carta: '))
+            if (uma_delas==posicao-4) and (uma_delas==posicao):
+                break
         destino = uma_delas
-        print(f'O destino da sua carta será para a posição: {destino}')
+        print(f'O destino da sua carta será para a posição: {posicoes_amarelas(str(destino))}')
         input('clique [enter] para confirmar')
     elif movimetacoes_possiveis== [1]:
         #destino=baralho[posicao-1]
         destino=posicao
-        print(f'O destino possível da sua carta será para a posição {destino}, que possui a carta {baralho[posicao-1]}')
+        print(f'O destino possível da sua carta será para a posição {posicoes_amarelas(str(destino))}, que possui a carta {carta_colorida(baralho[posicao-1])}')
         input('clique [enter] para confirmar')
     elif movimetacoes_possiveis== [3]:
         #destino=baralho[posicao-3]
         destino=posicao-2
-        print(f'O destino possível da sua carta será para a posição {destino}, que possui a carta {baralho[posicao-3]}')
+        print(f'O destino possível da sua carta será para a posição {posicoes_amarelas(str(destino))}, que possui a carta {carta_colorida(baralho[posicao-3])}')
         input('clique [enter] para confirmar')
     elif movimetacoes_possiveis== []:
         destino=[]
@@ -153,13 +166,27 @@ while True:
         print('O estado final do baralho é:' )
         i=0
         while i<len(baralho):
-            print(f'{i+1}. {baralho[i]}')
+            print(f'{i+1}. {carta_colorida(baralho[i])}')
             i+=1
         if len(baralho)==1:
             print('Parabéns você ganhou, conseguiu empilhar todas as cartas !!!!')
         else:
             print('Sem movimentações possíveis, não foi dessa vez, tente Novamente!' )
-        break
+        x = input('Deseja jogar novamente?')
+        while x[0]!= 'n' and x[0]!='N' and x[0]!='s' and x[0]!='S':
+            x = input('Deseja jogar novamente?')
+            if x[0]== 'n' or x[0]=='N':
+                print('Fim de jogo!!!')
+                break
+            elif x[0]=='s' or x[0]=='S':
+                baralho=['6♥','J♥','9♣','9♥']#cria_baralho()
+        if x[0]== 'n' or x[0]=='N':
+            print('Fim de jogo!!!')
+            break
+        elif x[0]=='s' or x[0]=='S':
+            baralho=cria_baralho()
+    
+
     
 
     
