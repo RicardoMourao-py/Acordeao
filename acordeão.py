@@ -179,7 +179,7 @@ while True:
                 print('Fim de jogo!!!')
                 break
             elif x[0]=='s' or x[0]=='S':
-                baralho=['6♥','J♥','9♣','9♥']#cria_baralho()
+                baralho=cria_baralho()
         if x[0]== 'n' or x[0]=='N':
             print('Fim de jogo!!!')
             break
